@@ -12,6 +12,16 @@ int comparaNumeros(void *p1, void *p2){
     return *a - *b;
 }
 
+int comparaIgualdade(void *p1, void *p2){
+    int * a = p1;
+    int * b = p2;
+    printf ("\n a : %d b: %d \n", *a , *b);
+    if  (*a == *b) 
+        return 1;
+    else 
+        return 0;
+}
+
 void processaInt(void *p){
     int * a = p;
     printf("%d ", *a );
@@ -22,12 +32,20 @@ int main( int argc, char * argv[] ){
     pABB arv = criaABB( sizeof( int ) );
 
     for( int i = 0; i < 12; i++ ){
-        insereABB( arv, &a[i], comparaNumeros );
+        insereABB( arv, &a[i], comparaNumeros );       
     }
 
     percursoPreOrdem( arv, processaInt ); printf("\n");
     percursoEmOrdem( arv, processaInt ); printf("\n");
     percursoPosOrdem( arv, processaInt ); printf("\n");
+ 
+    int resultadoBusca = buscaABB(arv, &a[5], comparaNumeros, comparaIgualdade );
+    if(resultadoBusca) 
+        printf("Elemento encontrado!\n");
+    else 
+        printf("Elemento não encontrado!\n");
+    
+  
 
     return 0;
 }

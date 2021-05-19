@@ -19,5 +19,6 @@ typedef struct Arvore{
     int tamInfo;
 } Arvore;
 
+int testaVaziaABB(pABB p);
 
 #endif
