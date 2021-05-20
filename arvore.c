@@ -11,6 +11,7 @@ pABB criaABB(int tamInfo)
 {
     pABB pp = malloc(sizeof(struct Arvore));
     pp->tamInfo = tamInfo;
+    pp->raiz = NULL;
     // A raiz esta vazia.
     return pp;
 }
@@ -147,10 +148,13 @@ int percursoPosOrdem(pABB pp, void (*processa)(void *p))
 
 int testaVaziaABB(pABB p)
 {
-    if (p == NULL)
+    printf("testaVaziaABB \n");
+    if (p == NULL || !p) {
+        printf("testaVaziaABB p is vazio\n");
         return TRUE;
-    else
+    } else {
         return FALSE;
+    }
 }
 
 int buscaABB(pABB p, void *item, int (*cmp)(void *p1, void *p2), int (*cmpI)(void *p1, void *p2))
@@ -179,31 +183,58 @@ int buscaABB(pABB p, void *item, int (*cmp)(void *p1, void *p2), int (*cmpI)(voi
 
 int destroiNos(No *noRemover)
 {
-    if (noRemover->esquerdo != NULL)
+
+    // if (noRemover->esquerdo == NULL && noRemover->direito == NULL) {
+    //   free(noRemover->dado);
+    //   free(noRemover);
+    //   return TRUE;
+    // }
+    if (noRemover == NULL || !noRemover) {
+      return TRUE;
+    }
+
+    if (noRemover->esquerdo != NULL && noRemover->esquerdo)
         destroiNos(noRemover->esquerdo);
-    if (noRemover->direito != NULL)
+    if (noRemover->direito != NULL && noRemover->direito)
         destroiNos(noRemover->direito);
 
+    // if (noRemover->direito != NULL && noRemover->direito) {
+    //   free(noRemover->direito);
+    // }
+    // if (noRemover->esquerdo != NULL && noRemover->esquerdo) {
+    //   free(noRemover->esquerdo);
+    // }
     free(noRemover->dado);
+    noRemover->dado = NULL;
     free(noRemover);
+    noRemover = NULL;
 
     return TRUE;
 }
 
 int reiniciaABB(pABB p) {
-  destroiNos(p->raiz);
+  if (!testaVaziaABB(p)) {
+    printf("reiniciaABB não esta vazia \n");
+    destroiNos(p->raiz);
+    p->raiz = NULL;
+  }
   return TRUE;
 }
 
 int destroiABB(pABB pp)
 {
 
-    if (!testaVaziaABB(pp)) {
-
-        if (destroiNos(pp->raiz)) {
-         free(pp);
-        }
-        return TRUE;
+    if (testaVaziaABB(pp)) {
+      printf("destroiABB chamado com raiz nulla \n");
+      return TRUE;
     }
-    return FALSE;
+
+    printf("destroiABB - \n");
+    if (pp->raiz != NULL) {
+      destroiNos(pp->raiz);
+    }
+    free(pp);
+    pp = NULL;
+
+    return TRUE;
 }
