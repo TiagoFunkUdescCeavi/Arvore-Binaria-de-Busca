@@ -184,9 +184,15 @@ int destroiNos(No *noRemover)
     if (noRemover->direito != NULL)
         destroiNos(noRemover->direito);
 
+    free(noRemover->dado);
     free(noRemover);
 
     return TRUE;
+}
+
+int reiniciaABB(pABB p) {
+  destroiNos(p->raiz);
+  return TRUE;
 }
 
 int destroiABB(pABB pp)
