@@ -71,6 +71,11 @@ int insereABB(pABB pp, void *novo, int (*cmp)(void *p1, void *p2))
     } while (1);
 }
 
+int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2)) {
+
+  return TRUE;
+}
+
 void erd(No *n, void (*processa)(void *p))
 {
     if (n != FALSE)
@@ -148,9 +153,7 @@ int percursoPosOrdem(pABB pp, void (*processa)(void *p))
 
 int testaVaziaABB(pABB p)
 {
-    printf("testaVaziaABB \n");
     if (p == NULL || !p) {
-        printf("testaVaziaABB p is vazio\n");
         return TRUE;
     } else {
         return FALSE;
@@ -183,12 +186,6 @@ int buscaABB(pABB p, void *item, int (*cmp)(void *p1, void *p2), int (*cmpI)(voi
 
 int destroiNos(No *noRemover)
 {
-
-    // if (noRemover->esquerdo == NULL && noRemover->direito == NULL) {
-    //   free(noRemover->dado);
-    //   free(noRemover);
-    //   return TRUE;
-    // }
     if (noRemover == NULL || !noRemover) {
       return TRUE;
     }
@@ -198,12 +195,6 @@ int destroiNos(No *noRemover)
     if (noRemover->direito != NULL && noRemover->direito)
         destroiNos(noRemover->direito);
 
-    // if (noRemover->direito != NULL && noRemover->direito) {
-    //   free(noRemover->direito);
-    // }
-    // if (noRemover->esquerdo != NULL && noRemover->esquerdo) {
-    //   free(noRemover->esquerdo);
-    // }
     free(noRemover->dado);
     noRemover->dado = NULL;
     free(noRemover);
@@ -214,7 +205,6 @@ int destroiNos(No *noRemover)
 
 int reiniciaABB(pABB p) {
   if (!testaVaziaABB(p)) {
-    printf("reiniciaABB não esta vazia \n");
     destroiNos(p->raiz);
     p->raiz = NULL;
   }
@@ -225,11 +215,9 @@ int destroiABB(pABB pp)
 {
 
     if (testaVaziaABB(pp)) {
-      printf("destroiABB chamado com raiz nulla \n");
       return TRUE;
     }
 
-    printf("destroiABB - \n");
     if (pp->raiz != NULL) {
       destroiNos(pp->raiz);
     }

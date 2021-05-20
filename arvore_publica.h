@@ -7,10 +7,10 @@ typedef struct Arvore *pABB;
 // Fiquem a vontade para mudar
 pABB criaABB(int tamInfo); // ok
 int destroiABB(pABB pp); // ok
-int reiniciaABB(pABB p);
+int reiniciaABB(pABB p); // ok
 int insereABB(pABB p, void *novo, int (* cmp)(void *p1, void *p2)); // ok
 int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2));
-int buscaABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(void *p1, void *p2)); //ok 
+int buscaABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(void *p1, void *p2)); //ok
 int percursoEmOrdem(pABB pa, void (* processa)(void *p)); // ok
 int percursoPreOrdem(pABB pa, void (* processa)(void *p)); // ok
 int percursoPosOrdem(pABB pa, void (* processa)(void *p)); // ok

@@ -52,7 +52,8 @@ int main( int argc, char * argv[] ){
         printf("Elemento não encontrado!\n");
 
     reiniciaABB(arv);
-    for( int i = 0; i < 3; i++ ){
+    reiniciaABB(arv);
+    for( int i = 0; i < 12; i++ ){
         insereABB( arv, &a[i], comparaNumeros );
     }
     printf("INSERIU TUDO!\n");
