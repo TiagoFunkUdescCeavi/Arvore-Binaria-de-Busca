@@ -34,6 +34,7 @@ int insereABB(pABB pp, void *novo, int (*cmp)(void *p1, void *p2))
     if (pp->raiz == FALSE)
     {
         pp->raiz = criarNo(pp->tamInfo);
+        pp->raiz->pai = NULL;
         memcpy(pp->raiz->dado, novo, pp->tamInfo);
         return TRUE;
     }
@@ -45,20 +46,25 @@ int insereABB(pABB pp, void *novo, int (*cmp)(void *p1, void *p2))
     {
         if (atual == FALSE)
         {
+          int* dado = novo;
+          printf("insereABB ATUAL == FALSE %d\n", *dado);
             atual = criarNo(pp->tamInfo);
             memcpy(atual->dado, novo, pp->tamInfo);
             if (filho_vai_esquerda == TRUE)
             {
+                printf("filho_vai_esquerda == TRUE %d\n", *dado);
                 pai->esquerdo = atual;
             }
             else if (filho_vai_esquerda == FALSE)
             {
+                printf("filho_vai_esquerda == FALSE %d\n", *dado);
                 pai->direito = atual;
             }
+            atual->pai = pai;
             return TRUE;
         }
         pai = atual;
-        if ((*cmp)(novo, atual->dado) > 0)
+        if ((*cmp)(novo, atual->dado) >= 0)
         {
             atual = atual->direito;
             filho_vai_esquerda = FALSE;
@@ -71,7 +77,7 @@ int insereABB(pABB pp, void *novo, int (*cmp)(void *p1, void *p2))
     } while (1);
 }
 
-int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2)) {
+int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(void *p1, void *p2)) {
 
   return TRUE;
 }
@@ -82,6 +88,15 @@ void erd(No *n, void (*processa)(void *p))
     {
         erd(n->esquerdo, processa);
         (*processa)(n->dado);
+        if (n->pai != NULL) {
+          printf(" = pai: ");
+          (*processa)(n->pai->dado);
+          printf("\n--\n");
+        } else if (n->pai == NULL)
+        {
+          printf(" é raiz\n");
+        }
+
         erd(n->direito, processa);
     }
 }
@@ -91,6 +106,11 @@ void red(No *n, void (*processa)(void *p))
     if (n != FALSE)
     {
         (*processa)(n->dado);
+        if (n->pai != NULL) {
+          printf("\nprocessa pai ");
+          (*processa)(n->pai->dado);
+          printf("--\n");
+        }
         red(n->esquerdo, processa);
         red(n->direito, processa);
     }
@@ -160,28 +180,37 @@ int testaVaziaABB(pABB p)
     }
 }
 
+No* buscaNo(No *raiz, void *item, int (*cmp)(void *p1, void *p2), int (* cmpI)(void *p1, void *p2)) {
+  No *atual = raiz;
+  while (atual != NULL)
+  {
+      if ((*cmpI)(item, atual->dado)) // elemento encontrado
+          return atual;
+      else if ((*cmp)(item, atual->dado) > 0)
+      {
+          atual = atual->direito;
+      }
+      else
+      {
+          atual = atual->esquerdo;
+      }
+  }
+  return NULL;
+}
+
 int buscaABB(pABB p, void *item, int (*cmp)(void *p1, void *p2), int (*cmpI)(void *p1, void *p2))
 {
     if (testaVaziaABB(p))
         return FALSE;
     else
     {
-        No *atual = p->raiz;
-        while (atual != NULL)
-        {
-            if ((*cmpI)(item, atual->dado)) // elemento encontrado
-                return TRUE;
-            else if ((*cmp)(item, atual->dado) > 0)
-            {
-                atual = atual->direito;
-            }
-            else
-            {
-                atual = atual->esquerdo;
-            }
-        }
-        return FALSE;
+      if (buscaNo(p->raiz, item, cmp, cmpI) != NULL)
+      {
+        return TRUE;
+      }
+
     }
+    return FALSE;
 }
 
 int destroiNos(No *noRemover)

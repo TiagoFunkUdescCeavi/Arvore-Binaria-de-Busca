@@ -57,7 +57,7 @@ int main( int argc, char * argv[] ){
         insereABB( arv, &a[i], comparaNumeros );
     }
     printf("INSERIU TUDO!\n");
-    percursoPreOrdem( arv, processaInt ); printf("\n");
+    percursoEmOrdem( arv, processaInt ); printf("\n");
 
     int resultadoDestruicao = destroiABB(arv);
     if(resultadoDestruicao)

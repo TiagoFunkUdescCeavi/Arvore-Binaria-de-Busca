@@ -10,6 +10,7 @@
 
 typedef struct No{
     void * dado;
+    struct No * pai;
     struct No * esquerdo;
     struct No * direito;
 } No;
@@ -21,5 +22,7 @@ typedef struct Arvore{
 
 int testaVaziaABB(pABB p);
 int destroiNos(No *noRemover);
+No* buscaNo(No *raiz, void *item, int (*cmp)(void *p1, void *p2), int (* cmpI)(void *p1, void *p2));
+
 
 #endif
