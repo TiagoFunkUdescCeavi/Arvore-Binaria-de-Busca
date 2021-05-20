@@ -155,7 +155,7 @@ int testaVaziaABB(pABB p)
 
 int buscaABB(pABB p, void *item, int (*cmp)(void *p1, void *p2), int (*cmpI)(void *p1, void *p2))
 {
-    if (!testaVaziaABB)
+    if (testaVaziaABB(p))
         return FALSE;
     else
     {
@@ -183,7 +183,7 @@ int destroiNos(No *noRemover)
         destroiNos(noRemover->esquerdo);
     if (noRemover->direito != NULL)
         destroiNos(noRemover->direito);
-  
+
     free(noRemover);
 
     return TRUE;
@@ -192,11 +192,12 @@ int destroiNos(No *noRemover)
 int destroiABB(pABB pp)
 {
 
-    if (!testaVaziaABB(pp))    {
-        
-        if(destroiNos(pp->raiz));
+    if (!testaVaziaABB(pp)) {
+
+        if (destroiNos(pp->raiz)) {
          free(pp);
+        }
         return TRUE;
-    } 
+    }
     return FALSE;
 }
