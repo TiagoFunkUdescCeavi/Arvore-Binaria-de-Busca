@@ -20,5 +20,6 @@ typedef struct Arvore{
 } Arvore;
 
 int testaVaziaABB(pABB p);
+int destroiNos(No *noRemover);
 
 #endif

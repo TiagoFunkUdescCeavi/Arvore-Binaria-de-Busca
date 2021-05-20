@@ -33,7 +33,7 @@ int insereABB(pABB pp, void *novo, int (*cmp)(void *p1, void *p2))
     if (pp->raiz == FALSE)
     {
         pp->raiz = criarNo(pp->tamInfo);
-        memcpy(pp->raiz->dado, novo, pp->tamInfo);       
+        memcpy(pp->raiz->dado, novo, pp->tamInfo);
         return TRUE;
     }
 
@@ -44,8 +44,8 @@ int insereABB(pABB pp, void *novo, int (*cmp)(void *p1, void *p2))
     {
         if (atual == FALSE)
         {
-            atual = criarNo(pp->tamInfo);                   
-            memcpy(atual->dado, novo, pp->tamInfo);  
+            atual = criarNo(pp->tamInfo);
+            memcpy(atual->dado, novo, pp->tamInfo);
             if (filho_vai_esquerda == TRUE)
             {
                 pai->esquerdo = atual;
@@ -155,24 +155,48 @@ int testaVaziaABB(pABB p)
 
 int buscaABB(pABB p, void *item, int (*cmp)(void *p1, void *p2), int (*cmpI)(void *p1, void *p2))
 {
-    int achou = 0;
     if (!testaVaziaABB)
         return FALSE;
     else
-    {        
+    {
         No *atual = p->raiz;
         while (atual != NULL)
-        {   
-            if((*cmpI)(item, atual->dado))     // elemento encontrado  
-                return TRUE;             
-            else if ((*cmp)(item, atual->dado) > 0)  {                   
-                atual = atual->direito;   
-            }        
-            else  {          
-                atual = atual->esquerdo; 
-            }             
-            
-        } 
+        {
+            if ((*cmpI)(item, atual->dado)) // elemento encontrado
+                return TRUE;
+            else if ((*cmp)(item, atual->dado) > 0)
+            {
+                atual = atual->direito;
+            }
+            else
+            {
+                atual = atual->esquerdo;
+            }
+        }
         return FALSE;
     }
+}
+
+int destroiNos(No *noRemover)
+{
+    if (noRemover->esquerdo != NULL)
+        destroiNos(noRemover->esquerdo);
+    if (noRemover->direito != NULL)
+        destroiNos(noRemover->direito);
+  
+    free(noRemover);
+
+    return TRUE;
+}
+
+int destroiABB(pABB pp)
+{
+
+    if (!testaVaziaABB(pp))    {
+        
+        if(destroiNos(pp->raiz));
+         free(pp);
+        return TRUE;
+    } 
+    return FALSE;
 }

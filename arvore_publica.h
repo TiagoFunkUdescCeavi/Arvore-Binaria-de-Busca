@@ -6,7 +6,7 @@ typedef struct Arvore *pABB;
 // Copiei no slide que o professor passou
 // Fiquem a vontade para mudar
 pABB criaABB(int tamInfo); // ok
-int destroiABB(pABB pp);
+int destroiABB(pABB pp); // ok
 int reiniciaABB(pABB p);
 int insereABB(pABB p, void *novo, int (* cmp)(void *p1, void *p2)); // ok
 int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2));

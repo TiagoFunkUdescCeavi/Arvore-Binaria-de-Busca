@@ -15,7 +15,6 @@ int comparaNumeros(void *p1, void *p2){
 int comparaIgualdade(void *p1, void *p2){
     int * a = p1;
     int * b = p2;
-    printf ("\n a : %d b: %d \n", *a , *b);
     if  (*a == *b) 
         return 1;
     else 
@@ -45,6 +44,12 @@ int main( int argc, char * argv[] ){
     else 
         printf("Elemento não encontrado!\n");
     
+
+    int resultadoDestruicao = destroiABB(arv);
+    if(resultadoDestruicao) 
+        printf("Arvore destruida!\n");
+    else 
+        printf("Arvore não destruida!\n");
   
 
     return 0;
