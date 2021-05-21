@@ -88,7 +88,6 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
   No* paiRemover = noRemover->pai;
   if (paiRemover == NULL) {
     // removendo raiz
-    printf("\n\nREMOVENDO RAIZ\n");
 
     if (noRemover->esquerdo == NULL && noRemover->direito == NULL) {
       freeNo(noRemover);
@@ -108,14 +107,8 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
     while (esquerdaMaisAdireita->direito != NULL) {
       esquerdaMaisAdireita = esquerdaMaisAdireita->direito;
     }
-    int* dado = esquerdaMaisAdireita->dado;
-    printf("\n PRINTT esquerdaMaisAdireita %d\n", *dado);
 
-    // print
-    int* dadoPai = esquerdaMaisAdireita->pai->dado;
-    printf("esquerdaMaisAdireita->pai->dado xzx: %d\n", *dadoPai);
     if (esquerdaMaisAdireita->pai != noRemover) {
-      printf("esquerdaMaisAdireita->pai != noRemover111");
       if (esquerdaMaisAdireita->esquerdo == NULL) {
         esquerdaMaisAdireita->pai->direito = NULL;
       } else {
@@ -126,7 +119,6 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
 
     if (noRemover->esquerdo != esquerdaMaisAdireita) {
       // quando o no esquerdaMaisAdireita é filho do noRemover
-      printf("noRemover->esquerdo != esquerdaMaisAdireita->esquerdo\n");
       esquerdaMaisAdireita->esquerdo = noRemover->esquerdo;
       if (esquerdaMaisAdireita->esquerdo != NULL) {
         esquerdaMaisAdireita->esquerdo->pai = esquerdaMaisAdireita;
@@ -135,31 +127,10 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
 
     if (noRemover->direito != esquerdaMaisAdireita) {
       // quando o no esquerdaMaisAdireita é filho do noRemover
-      printf("noRemover->direito != esquerdaMaisAdireita->direito213\n");
       esquerdaMaisAdireita->direito = noRemover->direito;
-      int* dadoDireito = noRemover->direito;
-       printf("\n PRINTT dadoDireito12312 %d\n", *dadoDireito);
       if (esquerdaMaisAdireita->direito != NULL) {
         esquerdaMaisAdireita->direito->pai = esquerdaMaisAdireita;
       }
-    }
-
-    // print
-
-    if (esquerdaMaisAdireita->direito != NULL) {
-      dado = esquerdaMaisAdireita->direito->dado;
-      printf("esquerdaMaisAdireita direito %d\n", *dado);
-      dado = esquerdaMaisAdireita->direito->pai->dado;
-      printf("esquerdaMaisAdireita direito PAI %d\n", *dado);
-    } else {
-      printf("\n esquerdaMaisAdireita->direito is NULL\n");
-    }
-
-    if (esquerdaMaisAdireita->esquerdo != NULL) {
-      dado = esquerdaMaisAdireita->esquerdo->dado;
-      printf("esquerdaMaisAdireita esquerdo %d\n", *dado);
-      dado = esquerdaMaisAdireita->esquerdo->pai->dado;
-      printf("esquerdaMaisAdireita esquerdo PAI %d\n", *dado);
     }
 
     esquerdaMaisAdireita->pai = NULL;
@@ -170,7 +141,6 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
   }
 
   if (noRemover->direito == NULL && noRemover->esquerdo == NULL) {
-    printf("removeABB NENHUM FILHO\n");
     // nenhum filho
     if (paiRemover->direito != NULL && cmpI(paiRemover->direito->dado, noRemover->dado) == TRUE) {
       paiRemover->direito = NULL;
@@ -182,7 +152,6 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
   }
 
   if (noRemover->direito != NULL && noRemover->esquerdo != NULL) {
-    printf("removeABB DOIS FILHOS\n");
     // dois filhos
     No* esquerdaMaisAdireita = noRemover->esquerdo;
     while (esquerdaMaisAdireita->direito != NULL) {
@@ -191,32 +160,15 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
 
     if (noRemover->esquerdo != esquerdaMaisAdireita) {
       // quando o no esquerdaMaisAdireita é filho do noRemover
-      printf("noRemover->esquerdo != esquerdaMaisAdireita->esquerdo\n");
       esquerdaMaisAdireita->esquerdo = noRemover->esquerdo;
       esquerdaMaisAdireita->esquerdo->pai = esquerdaMaisAdireita;
-      // noRemover->direito->pai = esquerdaMaisAdireita;
     }
 
     if (noRemover->direito != esquerdaMaisAdireita) {
       // quando o no esquerdaMaisAdireita é filho do noRemover
-      printf("noRemover->direito != esquerdaMaisAdireita->direito\n");
       esquerdaMaisAdireita->direito = noRemover->direito;
       esquerdaMaisAdireita->direito->pai = esquerdaMaisAdireita;
-      // noRemover->esquerdo->pai = esquerdaMaisAdireita;
     }
-
-    // print
-    // int* dado = esquerdaMaisAdireita->dado;
-    // printf("esquerdaMaisAdireita %d\n", *dado);
-    // if (esquerdaMaisAdireita->direito != NULL) {
-    //   dado = esquerdaMaisAdireita->direito->dado;
-    //   printf("esquerdaMaisAdireita direito %d\n", *dado);
-    // }
-    // if (esquerdaMaisAdireita->esquerdo != NULL) {
-    //   dado = esquerdaMaisAdireita->esquerdo->dado;
-    //   printf("esquerdaMaisAdireita esquerdo %d\n", *dado);
-    // }
-
 
     // limpa o pai do no a esquerda mais a direita
     // esquerdaMaisAdireita é o nó que vais substituir o noRemover
@@ -226,16 +178,11 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
 
     if (paiRemover->direito != NULL && cmpI(paiRemover->direito->dado, noRemover->dado) == TRUE) {
       // noRemover veio da direita
-      printf("noRemover veio da direita\n");
       paiRemover->direito = esquerdaMaisAdireita;
-      // noRemover->esquerdo->pai = esquerdaMaisAdireita;
     } else {
       // noRemover veio da esquerda
-      printf("noRemover veio da esquerda\n");
       paiRemover->esquerdo = esquerdaMaisAdireita;
-      // noRemover->direito->pai = esquerdaMaisAdireita;
     }
-    // noRemover->direito->pai = esquerdaMaisAdireita;
 
     freeNo(noRemover);
     return TRUE;
@@ -243,7 +190,6 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
 
   // SOMENTE UM FILHO
   if (noRemover->esquerdo == NULL) {
-    printf("removeABB SOMENTE DIREITA\n");
     // tem o no da direita
     // não tem o noRemover->esquerda
     if (paiRemover->direito != NULL && cmpI(paiRemover->direito->dado, noRemover->dado) == TRUE) {
@@ -256,7 +202,6 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
     return TRUE;
   }
 
-  printf("removeABB SOMENTE ESQUERDA\n");
   // tem o no da esquerda
   // não tem o noRemover->direita
   if (paiRemover->direito != NULL && cmpI(paiRemover->direito->dado, noRemover->dado) == TRUE) {
