@@ -63,6 +63,28 @@ int main( int argc, char * argv[] ){
     removeABB(arv, &a[10], comparaNumeros, comparaIgualdade );
     printf("\n REMOVENDO O VALOR %d \n", a[5]);
     removeABB(arv, &a[5], comparaNumeros, comparaIgualdade );
+    printf("\n REMOVENDO O VALOR %d \n", a[3]);
+    removeABB(arv, &a[3], comparaNumeros, comparaIgualdade );
+
+
+    int v68 = 68;
+    insereABB( arv, &v68, comparaNumeros );
+
+    int v70 = 70;
+    insereABB( arv, &v70, comparaNumeros );
+
+    int v65 = 65;
+    insereABB( arv, &v65, comparaNumeros );
+
+    // printf("\n REMOVENDO O VALOR %d \n", a[6]);
+    // removeABB(arv, &a[6], comparaNumeros, comparaIgualdade );
+    printf("\n REMOVENDO O VALOR %d \n", v68);
+    removeABB(arv, &v68, comparaNumeros, comparaIgualdade );
+    // removeABB(arv, &a[1], comparaNumeros, comparaIgualdade );
+    percursoEmOrdem( arv, processaInt ); printf("\n");
+
+    printf("\n REMOVENDO O VALOR %d \n", a[0]);
+    removeABB(arv, &a[0], comparaNumeros, comparaIgualdade );
 
     percursoEmOrdem( arv, processaInt ); printf("\n");
 

@@ -86,8 +86,34 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
   }
 
   No* paiRemover = noRemover->pai;
-  if (paiRemover == NULL) { // removendo raiz
-    return FALSE; //@todo
+  if (paiRemover == NULL) {
+    // removendo raiz
+    printf("\n\nREMOVENDO RAIZ\n");
+
+    No* esquerdaMaisAdireita = noRemover->esquerdo;
+    while (esquerdaMaisAdireita->direito != NULL) {
+      esquerdaMaisAdireita = esquerdaMaisAdireita->direito;
+    }
+
+    esquerdaMaisAdireita->pai->direito = NULL;
+
+    if (noRemover->esquerdo != esquerdaMaisAdireita) {
+      // quando o no esquerdaMaisAdireita é filho do noRemover
+      esquerdaMaisAdireita->esquerdo = noRemover->esquerdo;
+      esquerdaMaisAdireita->esquerdo->pai = esquerdaMaisAdireita;
+    }
+
+    if (noRemover->direito != esquerdaMaisAdireita) {
+      // quando o no esquerdaMaisAdireita é filho do noRemover
+      esquerdaMaisAdireita->direito = noRemover->direito;
+      esquerdaMaisAdireita->direito->pai = esquerdaMaisAdireita;
+    }
+
+    esquerdaMaisAdireita->pai = NULL;
+    p->raiz = esquerdaMaisAdireita;
+    freeNo(noRemover);
+
+    return TRUE;
   }
 
   if (noRemover->direito == NULL && noRemover->esquerdo == NULL) {
@@ -103,8 +129,62 @@ int removeABB(pABB p, void *item, int (* cmp)(void *p1, void *p2), int (* cmpI)(
   }
 
   if (noRemover->direito != NULL && noRemover->esquerdo != NULL) {
+    printf("removeABB DOIS FILHOS\n");
     // dois filhos
+    No* esquerdaMaisAdireita = noRemover->esquerdo;
+    while (esquerdaMaisAdireita->direito != NULL) {
+      esquerdaMaisAdireita = esquerdaMaisAdireita->direito;
+    }
 
+    if (noRemover->esquerdo != esquerdaMaisAdireita) {
+      // quando o no esquerdaMaisAdireita é filho do noRemover
+      printf("noRemover->esquerdo != esquerdaMaisAdireita->esquerdo\n");
+      esquerdaMaisAdireita->esquerdo = noRemover->esquerdo;
+      esquerdaMaisAdireita->esquerdo->pai = esquerdaMaisAdireita;
+      // noRemover->direito->pai = esquerdaMaisAdireita;
+    }
+
+    if (noRemover->direito != esquerdaMaisAdireita) {
+      // quando o no esquerdaMaisAdireita é filho do noRemover
+      printf("noRemover->direito != esquerdaMaisAdireita->direito\n");
+      esquerdaMaisAdireita->direito = noRemover->direito;
+      esquerdaMaisAdireita->direito->pai = esquerdaMaisAdireita;
+      // noRemover->esquerdo->pai = esquerdaMaisAdireita;
+    }
+
+    // print
+    // int* dado = esquerdaMaisAdireita->dado;
+    // printf("esquerdaMaisAdireita %d\n", *dado);
+    // if (esquerdaMaisAdireita->direito != NULL) {
+    //   dado = esquerdaMaisAdireita->direito->dado;
+    //   printf("esquerdaMaisAdireita direito %d\n", *dado);
+    // }
+    // if (esquerdaMaisAdireita->esquerdo != NULL) {
+    //   dado = esquerdaMaisAdireita->esquerdo->dado;
+    //   printf("esquerdaMaisAdireita esquerdo %d\n", *dado);
+    // }
+
+
+    // limpa o pai do no a esquerda mais a direita
+    // esquerdaMaisAdireita é o nó que vais substituir o noRemover
+    esquerdaMaisAdireita->pai->direito = NULL;
+
+    esquerdaMaisAdireita->pai = paiRemover;
+
+    if (cmpI(paiRemover->direito->dado, noRemover->dado) == TRUE) {
+      // noRemover veio da direita
+      printf("noRemover veio da direita\n");
+      paiRemover->direito = esquerdaMaisAdireita;
+      // noRemover->esquerdo->pai = esquerdaMaisAdireita;
+    } else {
+      // noRemover veio da esquerda
+      printf("noRemover veio da esquerda\n");
+      paiRemover->esquerdo = esquerdaMaisAdireita;
+      // noRemover->direito->pai = esquerdaMaisAdireita;
+    }
+    // noRemover->direito->pai = esquerdaMaisAdireita;
+
+    freeNo(noRemover);
     return TRUE;
   }
 
