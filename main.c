@@ -59,9 +59,16 @@ int main( int argc, char * argv[] ){
     printf("INSERIU TUDO!\n");
     percursoEmOrdem( arv, processaInt ); printf("\n");
 
+    printf("\n REMOVENDO O VALOR %d \n", a[10]);
+    removeABB(arv, &a[10], comparaNumeros, comparaIgualdade );
+    printf("\n REMOVENDO O VALOR %d \n", a[5]);
+    removeABB(arv, &a[5], comparaNumeros, comparaIgualdade );
+
+    percursoEmOrdem( arv, processaInt ); printf("\n");
+
     int resultadoDestruicao = destroiABB(arv);
     if(resultadoDestruicao)
-        printf("Arvore destruida!\n");
+        printf("\nArvore destruida!\n");
     else
         printf("Arvore não destruida!\n");
 
