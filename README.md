@@ -9,7 +9,7 @@
 - [make](https://www.unixmen.com/install-ubuntu-make-on-ubuntu-15-04/)
 
 ### Métodos Publicos
-- Os `ifndef` e `endif` são apenas para facilitar em casos que multiplos arquivos importam `lista_publica.h`. Entretando, detro do TDA os includes são respeitados
+- Os `ifndef` e `endif` são apenas para facilitar em casos que multiplos arquivos importam `arvore_publica.h`. Entretando, detro do TDA os includes são respeitados
 ```c
 // arvore_publica.h
 #ifndef ARVORE_PUBLICA_H
@@ -17,7 +17,7 @@
 
 typedef struct Arvore *pABB;
 
-// criaABB cira a estrutura da arvore binária
+// criaABB cira a estrutura da arvore binária passando o tamanho da informação por parâmetro
 pABB criaABB(int tamInfo);
 
 // destroiABB destroi a arvore binária liberando os dados
@@ -86,7 +86,7 @@ typedef struct Arvore{
 
 - Execute o comando `make`
 __Resultado Esperado__
-![](https://i.imgur.com/8yiNwTg.png)
+- ![](https://i.imgur.com/49EbX1S.png)
 
 - Deve gerar o arquivo executável `main`
 
@@ -96,9 +96,6 @@ __Resultado Esperado__
 ```shell
 ./main
 ```
-
-__Resultado Esperado__
-![](https://i.imgur.com/SXIacqo.png)
 
 > Para limpar, realizar o build e executar o main use `make run`
 
