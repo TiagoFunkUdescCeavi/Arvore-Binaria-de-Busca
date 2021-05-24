@@ -34,4 +34,12 @@ void freeNo(No* noRemover);
 No* buscaNo(No *raiz, void *item, int (*cmp)(void *p1, void *p2), int (* cmpI)(void *p1, void *p2));
 
 
+void erd(No *n, void (*processa)(void *p));
+
+void red(No *n, void (*processa)(void *p));
+
+void dre(No *n, void (*processa)(void *p));
+
+
+
 #endif
